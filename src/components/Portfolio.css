@@ -1,11 +1,12 @@
 .portfolio-section {
-  padding: 4rem 2rem;
+  padding: 4rem 0;
   background-color: #ffffff;
   text-align: center;
+  overflow: hidden; 
 }
 
 .portfolio-filters {
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   display: flex;
   justify-content: center;
   gap: 0.5rem;
@@ -32,10 +33,22 @@
   color: #fff;
 }
 
-.portfolio-grid {
-  display: grid;
-  gap: 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+
+.portfolio-slider {
+  margin: 0 20px;
+}
+
+.project-slide {
+  padding: 0 15px;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  transform: scale(0.85); 
+  opacity: 0.5; 
+}
+
+
+.slick-center .project-slide {
+  transform: scale(1); 
+  opacity: 1; 
 }
 
 .project-card {
@@ -79,4 +92,8 @@
   border-radius: 5px;
   font-size: 0.9rem;
   font-weight: bold;
+}
+
+.slick-prev:before, .slick-next:before {
+  color: #007bff;
 }
