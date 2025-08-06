@@ -97,3 +97,17 @@
 .slick-prev:before, .slick-next:before {
   color: #007bff;
 }
+.portfolio-slider {
+  margin: 0 20px;
+}
+
+/* Responsive settings for the slider */
+@media (max-width: 768px) {
+  .portfolio-slider {
+    margin: 0;
+  }
+  .project-slide {
+    transform: scale(1); /* No scaling on mobile */
+    opacity: 1; /* Full opacity on mobile */
+  }
+}

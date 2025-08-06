@@ -1,20 +1,29 @@
 import React, { useState } from 'react';
 import './Estimator.css';
 
-// Price data for estimates
+// 1. Update priceData to store numbers for calculation
 const priceData = {
-  '': { range: 'Select a service for an estimate', requiresUnit: false },
-  'faucet': { range: '$150 - $250', unit: 'faucet', requiresUnit: true },
-  'fan': { range: '$200 - $350', unit: 'fan', requiresUnit: true },
-  'drywall': { range: '$100 - $300', unit: 'patch', requiresUnit: true },
-  'painting': { range: '$400 - $800', unit: 'room', requiresUnit: true },
+  '': { min: 0, max: 0, unit: 'task' },
+  'faucet': { min: 120, max: 200, unit: 'faucet' },
+  'fan': { min: 150, max: 250, unit: 'fan' },
+  'drywall': { min: 80, max: 250, unit: 'patch' },
+  'painting': { min: 350, max: 700, unit: 'room' },
 };
 
 const Estimator = () => {
   const [service, setService] = useState('');
   const [units, setUnits] = useState(1);
 
-  const selectedPrice = priceData[service];
+  // 2. Calculate the total cost based on units
+  const calculateEstimate = () => {
+    if (!service) {
+      return 'Select a service';
+    }
+    const base = priceData[service];
+    const minCost = base.min * units;
+    const maxCost = base.max * units;
+    return `$${minCost} - $${maxCost}`;
+  };
 
   return (
     <section id="estimator" className="estimator-section">
@@ -31,20 +40,22 @@ const Estimator = () => {
             <option value="painting">Paint a Room</option>
           </select>
 
-          {selectedPrice && selectedPrice.requiresUnit && (
-            <input
-              type="number"
-              className="estimator-input"
-              value={units}
-              onChange={(e) => setUnits(Number(e.target.value))}
-              min="1"
-            />
+          {/* Only show the number input if a service is selected */}
+          {service && (
+             <input
+                type="number"
+                className="estimator-input"
+                value={units}
+                onChange={(e) => setUnits(Number(e.target.value))}
+                min="1"
+             />
           )}
         </div>
 
         <div className="estimator-result">
           <h3>Estimated Cost:</h3>
-          <p className="price-range">{selectedPrice.range}</p>
+          {/* 3. Display the calculated estimate */}
+          <p className="price-range">{calculateEstimate()}</p>
         </div>
 
          <div className="estimator-disclaimer">
