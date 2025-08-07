@@ -1,4 +1,4 @@
- import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // Import your components
@@ -7,36 +7,35 @@ import Hero from './components/Hero';
 import Services from './components/Services';
 import Estimator from './components/Estimator';
 import Portfolio from './components/Portfolio';
-import TrustHub from './components/TrustHub';
+import ProblemIdentifier from './components/ProblemIdentifier';
+import ProcessTimeline from './components/ProcessTimeline';
 import Testimonials from './components/Testimonials';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
-import Login from './components/Login/Login'; // Import the new login component
+import Login from './components/Login';
+import Register from './components/Register'; // 1. Import the new Register component
 
 import './App.css';
 
-// A new component to hold the main page content
 const HomePage = () => (
   <>
     <Hero />
     <Services />
-    <Estimator />
     <Portfolio />
-    <TrustHub />
+    <ProblemIdentifier />
+    <ProcessTimeline />
+    <Estimator />
     <Testimonials />
     <ContactForm />
   </>
 );
 
 function App() {
-  // State to track if the user is logged in
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-  };
-
+  const handleLogin = () => setIsLoggedIn(true);
   const handleLogout = () => {
+    localStorage.removeItem('token'); // Clear token on logout
     setIsLoggedIn(false);
   };
 
@@ -48,6 +47,8 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
+            {/* 2. Add the new route for the registration page */}
+            <Route path="/register" element={<Register onLogin={handleLogin} />} />
           </Routes>
         </main>
         <Footer />
